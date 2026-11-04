@@ -14,6 +14,7 @@
                     <div class="mascot is-wave" x-html="t.mascot"></div>
                 </div>
 
+                {{-- Streak strip hidden for now; restore this block to bring it back.
                 <div class="streak" role="group" :aria-label="`${streak} დღე ზედიზედ. ${weekLabel}`">
                     <div aria-hidden="true">
                         <p class="font-head font-extrabold text-[1.75rem] leading-none text-hi" x-text="`${streak} დღე`"></p>
@@ -28,16 +29,19 @@
                         </template>
                     </div>
                 </div>
+                --}}
 
-                <h2 class="font-head font-extrabold text-2xl text-onbg -mb-1">აირჩიე დონე</h2>
-                <div class="level-grid" role="group" aria-label="სირთულის დონე">
-                    <template x-for="n in 10" :key="n">
-                        <button type="button" class="match-item" :class="{ 'is-sel': level === n }"
-                                :aria-pressed="(level === n).toString()" :aria-label="`დონე ${n}`"
-                                @click="setLevel(n)" x-text="n"></button>
-                    </template>
+                <div class="level-slider">
+                    <div class="flex items-baseline justify-between gap-3">
+                        <h2 class="font-head font-extrabold text-2xl text-onbg">დონე <span class="text-hi" x-text="level"></span></h2>
+                        <p class="font-semibold text-onbg-soft text-right" x-text="levelHint"></p>
+                    </div>
+                    <input type="range" min="1" max="10" step="1" x-model.number="level" @change="setLevel(level)"
+                           aria-label="სირთულის დონე" :aria-valuetext="`დონე ${level}: ${levelHint}`">
+                    <div class="level-ticks" aria-hidden="true">
+                        <template x-for="n in 10" :key="n"><span :class="{ 'is-on': n === level }" x-text="n"></span></template>
+                    </div>
                 </div>
-                <p class="-mt-2 text-center font-semibold text-onbg-soft" x-text="levelHint"></p>
 
                 <h2 class="font-head font-extrabold text-2xl text-onbg -mb-1" x-text="t.words.pick"></h2>
                 <div class="subject-grid">

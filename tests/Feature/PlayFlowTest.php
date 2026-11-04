@@ -21,7 +21,7 @@ beforeEach(function () {
 it('opens without login and hands out an anonymous player cookie', function () {
     $this->get('/')
         ->assertOk()
-        ->assertSee('აირჩიე დონე')
+        ->assertSee('სირთულის დონე')
         ->assertCookie('kidzio_player');
 
     expect(Player::count())->toBe(2);
