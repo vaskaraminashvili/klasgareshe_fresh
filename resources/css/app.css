@@ -1,8 +1,27 @@
 @import 'tailwindcss';
+/* Kidzio's own components sit in the components layer so Tailwind utilities still win, as they did with the CDN build. */
+@import './kidzio.css' layer(components);
 
 @source '../views';
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-head: 'ALK Life', system-ui, sans-serif;
+    --font-body: 'ALK Life', system-ui, sans-serif;
+    --color-onbg: var(--on-bg);
+    --color-onbg-soft: var(--on-bg-soft);
+    --color-hi: var(--hi-text);
+    --color-ink: var(--ink);
+    --color-ink-soft: var(--ink-soft);
+}
+
+@layer components {
+    .level-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .name-form { display: grid; gap: 12px; }
+    .name-input {
+        min-height: 56px; padding: 0 16px; text-align: center;
+        font: inherit; font-size: 1.375rem; font-weight: 800;
+        color: var(--ink); background: var(--cream);
+        border: 3px solid var(--ink); border-radius: var(--r-btn);
+    }
+    .name-input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 }

@@ -1,0 +1,48 @@
+/* Kidzio theme: Space (dark). Night sky, warm accents. */
+:root {
+  --bg: #141B3C;  --bg-raised: #1F2853;  --bg-deep: #0D1330;  --bg-line: #34407A;
+  --on-bg: #FFF4D6;  --on-bg-soft: #E0D8C4;  --frame: #0D1330;
+
+  --a1: #FF7A3D;  --a1-deep: #C4511C;   /* rocket orange */
+  --a2: #FFCF4A;  --a2-deep: #C9941A;   /* moon yellow */
+  --a3: #5ED6B0;  --a3-deep: #2C9677;   /* planet mint */
+  --a4: #FF9EB5;  --a4-deep: #D2637F;   /* soft pink */
+
+  --good: #5ED6B0;  --good-deep: #2C9677;
+  --miss: #FF9EB5;  --miss-deep: #D2637F;
+  --hi: #FFCF4A;    --hi-deep: #C9941A;   --hi-text: #FFCF4A;
+
+  --track: #34407A;  --trail: #FFF4D6;  --traveller-turn: 90deg;
+}
+
+/* Stars twinkle slowly */
+.twinkle { animation: twinkle 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.twinkle.d1 { animation-delay: -1.2s; animation-duration: 6s; }
+.twinkle.d2 { animation-delay: -2.6s; animation-duration: 7s; }
+.twinkle.d3 { animation-delay: -3.9s; animation-duration: 5.5s; }
+@keyframes twinkle {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%      { opacity: .35; transform: scale(.82); }
+}
+
+/* Celebration: rocket blast + star trail */
+.blast-rocket {
+  position: absolute; left: 0; top: 0; width: 96px; height: 96px;
+  animation: blast-off 1100ms cubic-bezier(.5, 0, .75, .5) forwards;
+}
+.blast-rocket svg { width: 100%; height: 100%; transform: rotate(40deg); }
+@keyframes blast-off {
+  from { transform: translate(-120px, 760px); }
+  to   { transform: translate(460px, -160px); }
+}
+.blast-star {
+  position: absolute; width: 26px; height: 26px; margin: -13px;
+  opacity: 0;
+  animation: trail 700ms var(--ease-soft) both;
+}
+.blast-star svg { width: 100%; height: 100%; }
+@keyframes trail {
+  0%   { opacity: 0; transform: scale(.2) rotate(0); }
+  30%  { opacity: 1; transform: scale(1.15) rotate(40deg); }
+  100% { opacity: 0; transform: scale(.6) rotate(110deg); }
+}

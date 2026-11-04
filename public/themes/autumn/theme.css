@@ -1,0 +1,54 @@
+/* Kidzio theme: Autumn forest (dark). Chestnut dusk, pumpkin / mustard / sage / berry. */
+:root {
+  --bg: #33211C;  --bg-raised: #47302A;  --bg-deep: #1E120F;  --bg-line: #6A4B3F;
+  --on-bg: #FFF0DA;  --on-bg-soft: #EBD3B5;  --frame: #1E120F;
+
+  --a1: #F28A3B;  --a1-deep: #B5561A;   /* pumpkin */
+  --a2: #F2C14E;  --a2-deep: #B8891C;   /* mustard */
+  --a3: #9DCB8E;  --a3-deep: #5F8F52;   /* sage */
+  --a4: #EF8F8F;  --a4-deep: #B85A5C;   /* berry */
+
+  --good: #9DCB8E;  --good-deep: #5F8F52;
+  --miss: #F4A5A0;  --miss-deep: #BF6B66;
+  --hi: #F2C14E;    --hi-deep: #B8891C;   --hi-text: #F2C14E;
+
+  --track: #6A4B3F;  --trail: #F2C14E;  --traveller-turn: 0deg;
+}
+
+/* Hazel's pivots */
+.mascot .m-arm-l { transform-origin: 31px 101px; }
+.mascot .m-arm-r { transform-origin: 89px 101px; }
+.mascot .m-head  { transform-origin: 60px 100px; }
+
+/* The acorn rolls as it travels */
+.flight-traveller svg { transform: rotate(calc(var(--progress, 0) * 720deg)); transition: transform 700ms var(--ease-bounce); }
+
+/* Leaves drift down slowly behind everything */
+.leaf-fall {
+  position: absolute; top: -40px; width: 18px; height: 18px;
+  opacity: .75;
+  animation: leaf-fall 20s linear infinite;
+}
+.leaf-fall svg { width: 100%; height: 100%; fill: var(--c); }
+@keyframes leaf-fall {
+  0%   { transform: translate(0, 0) rotate(0); }
+  25%  { transform: translate(8px, 230px) rotate(90deg); }
+  50%  { transform: translate(-6px, 460px) rotate(200deg); }
+  75%  { transform: translate(10px, 690px) rotate(290deg); }
+  100% { transform: translate(0, 940px) rotate(380deg); }
+}
+
+/* Celebration: a gust of leaves swirls across */
+.gust-leaf {
+  position: absolute; left: 0; width: 38px; height: 38px;
+  opacity: 0;
+  animation: gust 1200ms cubic-bezier(.35, .1, .4, 1) both;
+}
+.gust-leaf svg { width: 100%; height: 100%; fill: var(--c); stroke: #1E2346; stroke-width: 1.2; overflow: visible; }
+@keyframes gust {
+  0%   { opacity: 0; transform: translate(-60px, 40px) rotate(0); }
+  15%  { opacity: 1; }
+  50%  { transform: translate(190px, -50px) rotate(260deg) scale(1.15); }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(460px, -10px) rotate(560deg); }
+}

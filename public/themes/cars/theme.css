@@ -1,0 +1,91 @@
+/* Kidzio theme: Race cars (bright). Sunny sky, coral / taxi yellow / race green / blue. */
+:root {
+  --bg: #CFEAFB;  --bg-raised: #EAF6FE;  --bg-deep: #7AA9C6;  --bg-line: #8FB9D3;
+  --on-bg: #182A47;  --on-bg-soft: #3A5272;  --frame: #22324A;
+
+  --a1: #FF6B4A;  --a1-deep: #C2412A;   /* race coral */
+  --a2: #FFC93C;  --a2-deep: #C9941A;   /* taxi yellow */
+  --a3: #43C08A;  --a3-deep: #24845A;   /* go green */
+  --a4: #4FA3F7;  --a4-deep: #2A6DB5;   /* sky blue */
+
+  --good: #43C08A;  --good-deep: #24845A;
+  --miss: #FF9EB5;  --miss-deep: #D2637F;
+  --hi: #FFC93C;    --hi-deep: #C9941A;   --hi-text: #9A4210;
+  --focus: #182A47;
+
+  --track: transparent;  --trail: transparent;  --traveller-turn: 0deg;
+}
+
+/* Vroomy's pivots */
+.mascot .m-arm-l { transform-origin: 10px 90px; }
+.mascot .m-arm-r { transform-origin: 110px 90px; }
+.mascot .m-head  { transform-origin: 60px 88px; }
+
+/* Progress: a little road with a dashed centre line */
+.flight-track {
+  height: 14px; margin-top: -7px;
+  border-top: 0; border-radius: 7px;
+  background: #5B6476;
+}
+.flight-track::after {
+  content: ""; position: absolute; left: 6px; right: 6px; top: 6px;
+  border-top: 2px dashed #FFFFFF;
+}
+.flight-traveller { margin-top: -26px; }
+
+/* Clouds drift slowly across the sky */
+.cloud {
+  position: absolute; left: -140px; width: 110px; height: 34px;
+  border-radius: 20px; background: #FFFFFF;
+  animation: drift 70s linear infinite;
+}
+.cloud::before, .cloud::after {
+  content: ""; position: absolute; background: #FFFFFF; border-radius: 50%;
+}
+.cloud::before { width: 48px; height: 48px; left: 18px; top: -24px; }
+.cloud::after  { width: 36px; height: 36px; left: 56px; top: -16px; }
+@keyframes drift { from { translate: 0 0; } to { translate: 680px 0; } }
+
+/* Celebration: zoom past */
+.zoom-car {
+  position: absolute; top: 56%; left: 0; width: 110px; height: 110px;
+  animation: zoom 1000ms cubic-bezier(.55, 0, .7, .4) forwards;
+}
+.zoom-car svg { width: 100%; height: 100%; }
+@keyframes zoom {
+  from { transform: translateX(-140px); }
+  to   { transform: translateX(520px); }
+}
+.zoom-line {
+  position: absolute; left: 0; width: 90px; height: 0;
+  border-top: 5px solid #FFFFFF; border-radius: 4px;
+  opacity: 0;
+  animation: zoom-line 900ms ease-in both;
+}
+@keyframes zoom-line {
+  0%   { opacity: 0; transform: translateX(-120px); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(420px); }
+}
+.dust {
+  position: absolute; top: calc(56% + 84px); width: 30px; height: 30px; margin-left: -15px;
+  border-radius: 50%; background: #E9DDC6; border: 3px solid #1E2346;
+  opacity: 0;
+  animation: dust 700ms var(--ease-soft) both;
+}
+@keyframes dust {
+  0%   { opacity: 0; transform: scale(.3); }
+  30%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.4) translateY(-20px); }
+}
+.pop-star {
+  position: absolute; width: 34px; height: 34px; margin: -17px;
+  opacity: 0;
+  animation: pop-star 700ms var(--ease-bounce) both;
+}
+.pop-star svg { width: 100%; height: 100%; }
+@keyframes pop-star {
+  0%   { opacity: 0; transform: scale(0) rotate(-30deg); }
+  40%  { opacity: 1; transform: scale(1.2) rotate(10deg); }
+  100% { opacity: 0; transform: scale(.8) rotate(40deg) translateY(-30px); }
+}

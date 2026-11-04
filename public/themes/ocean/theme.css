@@ -1,0 +1,72 @@
+/* Kidzio theme: Under the sea (bright). Turquoise water, coral / sunny / sea green / pink. */
+:root {
+  --bg: #A9E6EE;  --bg-raised: #D3F4F7;  --bg-deep: #4C9FB0;  --bg-line: #6FBFCB;
+  --on-bg: #0F3446;  --on-bg-soft: #2B5568;  --frame: #0F3446;
+
+  --a1: #FF7F66;  --a1-deep: #C4513C;   /* coral */
+  --a2: #FFD24D;  --a2-deep: #C99A1E;   /* sunny */
+  --a3: #3FC195;  --a3-deep: #23825F;   /* sea green */
+  --a4: #FF9EC4;  --a4-deep: #CF5F93;   /* shell pink */
+
+  --good: #3FC195;  --good-deep: #23825F;
+  --miss: #FFA3B5;  --miss-deep: #D2637F;
+  --hi: #FFD24D;    --hi-deep: #C99A1E;   --hi-text: #8A4500;
+  --focus: #0F3446;
+
+  --track: #4C9FB0;  --trail: #FFFFFF;  --traveller-turn: 0deg;
+}
+
+/* Finn's pivots */
+.mascot .m-arm-l { transform-origin: 26px 88px; }
+.mascot .m-arm-r { transform-origin: 94px 88px; }
+.mascot .m-head  { transform-origin: 60px 104px; }
+
+/* The submarine bobs gently on its way */
+.flight-traveller svg { animation: bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+
+/* Seaweed sways, bubbles rise */
+.sway { animation: sway 6s ease-in-out infinite; }
+.sway.d1 { animation-duration: 7s; animation-delay: -2s; }
+.sway.d2 { animation-duration: 5s; animation-delay: -1s; }
+@keyframes sway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+
+.bubble {
+  position: absolute; bottom: -30px; width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(255, 255, 255, .85);
+  background: rgba(255, 255, 255, .25);
+  animation: rise 15s linear infinite;
+}
+.bubble:nth-child(odd) { width: 10px; height: 10px; }
+@keyframes rise {
+  0%   { transform: translate(0, 0); }
+  33%  { transform: translate(10px, -300px); }
+  66%  { transform: translate(-8px, -600px); }
+  100% { transform: translate(4px, -920px); }
+}
+
+/* Celebration: bubble burst + fish dash */
+.pop-bubble {
+  position: absolute; bottom: 8%; width: 30px; height: 30px; margin-left: -15px;
+  border-radius: 50%;
+  border: 3px solid #FFFFFF;
+  background: rgba(255, 255, 255, .3);
+  opacity: 0;
+  animation: pop-bubble 1100ms var(--ease-soft) both;
+}
+@keyframes pop-bubble {
+  0%   { opacity: 0; transform: translateY(0) scale(.4); }
+  20%  { opacity: 1; }
+  85%  { opacity: 1; transform: translateY(-520px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-560px) scale(1.5); }
+}
+.dash-fish {
+  position: absolute; left: 0; width: 76px; height: 48px;
+  animation: dash 1000ms cubic-bezier(.5, 0, .6, .6) both;
+}
+.dash-fish svg { width: 100%; height: 100%; }
+@keyframes dash {
+  from { transform: translateX(460px); }
+  to   { transform: translateX(-120px); }
+}
