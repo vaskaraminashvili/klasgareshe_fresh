@@ -33,7 +33,7 @@ class QuestionSeeder extends Seeder
                 $this->add('multiple', $level, 'რამდენია '.$text.'?', [
                     'options' => $this->numberOptions($answer, $level),
                     'answer' => 0,
-                ], "სწორია! $text = $answer.", "სწორი პასუხია $answer, რადგან $text = $answer.");
+                ], "სწორია! $text = $answer.", "სწორი პასუხია $answer, რადგან $text = $answer.", subject: 'math');
             }
 
             foreach (range(1, 10) as $i) {
@@ -42,7 +42,7 @@ class QuestionSeeder extends Seeder
                 $shown = $isTrue ? $answer : $answer + [-2, -1, 1, 2][random_int(0, 3)] * max(1, intdiv($level, 4));
                 $this->add('truefalse', $level, "$text = $shown", ['answer' => $isTrue],
                     'სწორია! '.($isTrue ? "$text = $answer." : "ეს არასწორია, $text = $answer."),
-                    'ეს '.($isTrue ? 'მართალია' : 'არასწორია').": $text = $answer.");
+                    'ეს '.($isTrue ? 'მართალია' : 'არასწორია').": $text = $answer.", subject: 'math');
             }
         }
 
@@ -276,10 +276,11 @@ class QuestionSeeder extends Seeder
     }
 
     /** @param  array<string, mixed>  $payload */
-    private function add(string $type, int $level, string $prompt, array $payload, string $praise, string $hint): void
+    private function add(string $type, int $level, string $prompt, array $payload, string $praise, string $hint, ?string $subject = null): void
     {
         Question::create([
             'game_id' => $this->gameIds[$type],
+            'subject' => $subject,
             'difficulty' => $level,
             'prompt' => $prompt,
             'payload' => $payload,

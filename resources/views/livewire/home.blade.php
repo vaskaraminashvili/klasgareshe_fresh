@@ -31,6 +31,20 @@
                 </div>
                 --}}
 
+                <div class="chip-row" role="group" aria-label="საგანი" x-show="subjects.length">
+                    <button type="button" class="chip" :aria-pressed="subject === null" @click="setSubject(null)">ყველა საგანი</button>
+                    <template x-for="s in subjects" :key="s.value">
+                        <button type="button" class="chip" :aria-pressed="subject === s.value" @click="setSubject(s.value)" x-text="s.label"></button>
+                    </template>
+                </div>
+
+                <div class="chip-row" role="group" aria-label="კლასი" x-show="grades.length">
+                    <button type="button" class="chip" :aria-pressed="grade === null" @click="setGrade(null)">ყველა კლასი</button>
+                    <template x-for="g in grades" :key="g">
+                        <button type="button" class="chip" :aria-pressed="grade === g" @click="setGrade(g)" x-text="`${g} კლასი`"></button>
+                    </template>
+                </div>
+
                 <div class="level-slider">
                     <div class="flex items-baseline justify-between gap-3">
                         <h2 class="font-head font-extrabold text-2xl text-onbg">დონე <span class="text-hi" x-text="level"></span></h2>

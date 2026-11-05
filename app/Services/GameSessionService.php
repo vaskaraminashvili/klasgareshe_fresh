@@ -22,22 +22,27 @@ class GameSessionService
         private readonly ScoreCalculator $scores,
     ) {}
 
-    /** Fixes the question set and every shuffle at creation, so a refresh never changes them. */
-    public function start(Player $player, ?Game $game, int $difficulty): GameSession
+    /**
+     * Fixes the question set and every shuffle at creation, so a refresh never changes them.
+     * `$subject` and `$grade` narrow the pool; null means any.
+     */
+    public function start(Player $player, ?Game $game, int $difficulty, ?string $subject = null, ?int $grade = null): GameSession
     {
         $difficulty = max(1, min(10, $difficulty));
         $count = $game?->config['questions_per_session'] ?? self::DEFAULT_QUESTIONS;
-        $questions = $this->selector->select($game, $difficulty, $count, $player);
+        $questions = $this->selector->select($game, $difficulty, $count, $player, $subject, $grade);
 
         if ($questions->isEmpty()) {
             throw new NoQuestionsAvailable;
         }
 
-        return DB::transaction(function () use ($player, $game, $difficulty, $questions) {
+        return DB::transaction(function () use ($player, $game, $difficulty, $subject, $grade, $questions) {
             $session = GameSession::create([
                 'uuid' => (string) Str::uuid(),
                 'player_id' => $player->id,
                 'game_id' => $game?->id,
+                'subject' => $subject,
+                'grade' => $grade,
                 'difficulty' => $difficulty,
                 'status' => SessionStatus::Active,
                 'started_at' => now(),

@@ -116,7 +116,7 @@ class Play extends Component
     private function startNew(GameSessionService $sessions, PlayerResolver $players, int $levelStep): void
     {
         $old = $this->ownSession();
-        $session = $sessions->start($players->resolve(), $old->game, min(10, $old->difficulty + $levelStep));
+        $session = $sessions->start($players->resolve(), $old->game, min(10, $old->difficulty + $levelStep), $old->subject, $old->grade);
 
         $this->redirectRoute('play', ['session' => $session->uuid]);
     }

@@ -247,3 +247,24 @@ it('refuses to start when a game has no questions at all', function () {
 
     $this->service->start($this->player, $game, 5);
 })->throws(NoQuestionsAvailable::class);
+
+it('only picks questions of the chosen subject and remembers the filter on the session', function () {
+    $game = Game::where('type', 'multiple')->first();
+    Question::create(['game_id' => $game->id, 'subject' => 'history', 'grade' => 7, 'difficulty' => 5, 'prompt' => 'რომელ წელს?', 'payload' => ['options' => ['1121', '1122'], 'answer' => 0], 'praise' => 'სწორია!', 'hint' => '1121.']);
+
+    $session = $this->service->start($this->player, $game, 5, 'history', 7);
+
+    expect($session->items()->with('question')->get()->pluck('question.subject')->unique()->all())->toBe(['history'])
+        ->and($session->subject)->toBe('history')
+        ->and($session->grade)->toBe(7);
+});
+
+it('treats questions without a grade as fitting every grade', function () {
+    $session = $this->service->start($this->player, Game::where('type', 'multiple')->first(), 5, 'math', 9);
+
+    expect($session->total_questions)->toBeGreaterThan(0);
+});
+
+it('refuses to start when the chosen subject has no questions', function () {
+    $this->service->start($this->player, Game::where('type', 'multiple')->first(), 5, 'chemistry');
+})->throws(NoQuestionsAvailable::class);

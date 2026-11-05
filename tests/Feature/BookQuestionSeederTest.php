@@ -45,6 +45,24 @@ test('imports every question type from book files into the matching game', funct
         ->and(Question::where('prompt', '7 · 8 = 54')->value('difficulty'))->toBe(10);
 });
 
+test('stores subject and grade, and fills them in on questions imported before', function () {
+    runBookSeeder($this->directory, bookRows());
+    expect(Question::whereNull('subject')->count())->toBe(3);
+
+    runBookSeeder($this->directory, array_map(fn (array $row) => [...$row, 'subject' => 'Math', 'grade' => 4], bookRows()));
+
+    expect(Question::count())->toBe(3)
+        ->and(Question::where('subject', 'math')->where('grade', 4)->count())->toBe(3);
+});
+
+test('rejects a grade outside 1 to 12', function () {
+    $rows = bookRows();
+    $rows[0]['grade'] = 13;
+
+    expect(fn () => runBookSeeder($this->directory, $rows))
+        ->toThrow(InvalidArgumentException::class, 'book.json row 0: grade must be a whole number from 1 to 12.');
+});
+
 test('running the import again does not duplicate questions', function () {
     runBookSeeder($this->directory, bookRows());
     runBookSeeder($this->directory, bookRows());

@@ -21,8 +21,8 @@ class BookQuestionSeeder extends Seeder
     {
         $gameIds = Game::pluck('id', 'type')->mapWithKeys(fn ($id, $type) => [$type instanceof GameType ? $type->value : $type => $id])->all();
 
-        $existing = Question::whereIn('game_id', $gameIds)->get(['game_id', 'prompt', 'payload'])
-            ->mapWithKeys(fn (Question $question) => [$this->key($question->game_id, $question->prompt, $question->payload) => true])
+        $existing = Question::whereIn('game_id', $gameIds)->get(['id', 'game_id', 'prompt', 'payload'])
+            ->mapWithKeys(fn (Question $question) => [$this->key($question->game_id, $question->prompt, $question->payload) => $question->id])
             ->all();
 
         foreach (File::glob($this->directory.'/*.json') as $file) {
@@ -40,19 +40,25 @@ class BookQuestionSeeder extends Seeder
                 $gameId = $gameIds[$row['type']];
                 $key = $this->key($gameId, $row['prompt'], $row['payload']);
 
+                $tags = ['subject' => isset($row['subject']) ? mb_strtolower(trim($row['subject'])) : null, 'grade' => $row['grade'] ?? null];
+
+                // Already imported: only refresh subject and grade, so older imports pick them up.
                 if (isset($existing[$key])) {
+                    Question::whereKey($existing[$key])->update($tags);
+
                     continue;
                 }
 
-                Question::create([
+                $question = Question::create([
                     'game_id' => $gameId,
+                    ...$tags,
                     'difficulty' => max(1, min(10, (int) $row['difficulty'])),
                     'prompt' => $row['prompt'],
                     'payload' => $row['payload'],
                     'praise' => $row['praise'],
                     'hint' => $row['hint'],
                 ]);
-                $existing[$key] = true;
+                $existing[$key] = $question->id;
                 $imported++;
             }
 
@@ -63,7 +69,7 @@ class BookQuestionSeeder extends Seeder
     /**
      * Rejects rows the game handlers could not play, so a bad file never reaches children.
      *
-     * @param  array{type?: string, prompt?: string, praise?: string, hint?: string, difficulty?: int, payload?: array<string, mixed>}  $row
+     * @param  array{type?: string, subject?: string, grade?: int, prompt?: string, praise?: string, hint?: string, difficulty?: int, payload?: array<string, mixed>}  $row
      */
     private function validate(array $row, string $where): void
     {
@@ -71,6 +77,14 @@ class BookQuestionSeeder extends Seeder
             if (! isset($row[$field])) {
                 throw new InvalidArgumentException("$where: missing $field.");
             }
+        }
+
+        if (isset($row['subject']) && (! is_string($row['subject']) || mb_strlen($row['subject']) > 50)) {
+            throw new InvalidArgumentException("$where: subject must be text up to 50 characters.");
+        }
+
+        if (isset($row['grade']) && (! is_int($row['grade']) || $row['grade'] < 1 || $row['grade'] > 12)) {
+            throw new InvalidArgumentException("$where: grade must be a whole number from 1 to 12.");
         }
 
         $payload = $row['payload'];

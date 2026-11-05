@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['uuid', 'player_id', 'game_id', 'difficulty', 'status', 'started_at', 'completed_at', 'duration_seconds', 'total_questions', 'correct_count', 'incorrect_count', 'clues_used', 'score', 'question_ids'])]
+#[Fillable(['uuid', 'player_id', 'game_id', 'subject', 'grade', 'difficulty', 'status', 'started_at', 'completed_at', 'duration_seconds', 'total_questions', 'correct_count', 'incorrect_count', 'clues_used', 'score', 'question_ids'])]
 class GameSession extends Model
 {
     protected function casts(): array

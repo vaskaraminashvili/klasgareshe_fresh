@@ -19,6 +19,13 @@
     .screen-body { overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none; }
     .screen-body::-webkit-scrollbar { display: none; }
     .screen-body.grid, .q-in.grid { grid-template-columns: minmax(0, 1fr); }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+        min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+        font: inherit; font-weight: 800; color: var(--on-bg); background: var(--bg-raised); border: 2px solid var(--bg-line);
+    }
+    .chip[aria-pressed='true'] { color: var(--ink); background: var(--cream); border-color: var(--ink); box-shadow: 0 3px 0 var(--bg-deep); }
+    .chip:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
     .level-slider { display: grid; gap: 8px; }
     .level-slider input[type='range'] {
         width: 100%; height: 44px; margin: 0; background: transparent; appearance: none; cursor: pointer;

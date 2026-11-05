@@ -1,0 +1,9 @@
+open website 
+create user boy/girl add avatar and user name 
+choose grade after 
+choose level of difficulty 
+users sees subjects 
+open subjecty play
+
+need place to add files for the question generation like PDF and.
+subject level per grade is like book from start to end. 10 level is hard and like end of the book examples. 

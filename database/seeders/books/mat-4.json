@@ -14,7 +14,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 240 + 360 - 150 = 450."
+    "praise": "სწორია! 240 + 360 - 150 = 450.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "gap",
@@ -33,7 +35,9 @@
       ],
       "answer": "45"
     },
-    "praise": "სწორია! 5 · 9 = 45."
+    "praise": "სწორია! 5 · 9 = 45.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "truefalse",
@@ -44,7 +48,9 @@
     "payload": {
       "answer": false
     },
-    "praise": "სწორია! ეს არასწორია, 7 · 8 = 56."
+    "praise": "სწორია! ეს არასწორია, 7 · 8 = 56.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -61,7 +67,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! (180 + 20) : 4 = 50."
+    "praise": "სწორია! (180 + 20) : 4 = 50.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -78,7 +86,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 4 · 25 - 30 = 70."
+    "praise": "სწორია! 4 · 25 - 30 = 70.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "gap",
@@ -97,7 +107,9 @@
       ],
       "answer": "640"
     },
-    "praise": "სწორია! 1000 - 360 = 640."
+    "praise": "სწორია! 1000 - 360 = 640.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -114,7 +126,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! (6 + 9) · 4 = 60."
+    "praise": "სწორია! (6 + 9) · 4 = 60.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "truefalse",
@@ -125,7 +139,9 @@
     "payload": {
       "answer": false
     },
-    "praise": "სწორია! ეს არასწორია, 250 + 90 = 340."
+    "praise": "სწორია! ეს არასწორია, 250 + 90 = 340.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -142,7 +158,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 45 : 5 + 6 · 4 = 33."
+    "praise": "სწორია! 45 : 5 + 6 · 4 = 33.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -159,7 +177,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 6 + 6 · 7 = 48."
+    "praise": "სწორია! 6 + 6 · 7 = 48.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "gap",
@@ -178,7 +198,9 @@
       ],
       "answer": "9"
     },
-    "praise": "სწორია! 72 : 8 = 9."
+    "praise": "სწორია! 72 : 8 = 9.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "truefalse",
@@ -189,7 +211,9 @@
     "payload": {
       "answer": false
     },
-    "praise": "სწორია! ეს არასწორია, 8 · 7 = 56."
+    "praise": "სწორია! ეს არასწორია, 8 · 7 = 56.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -206,7 +230,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 48 : 6 = 8."
+    "praise": "სწორია! 48 : 6 = 8.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -223,7 +249,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! (18 + 6) : 3 = 8."
+    "praise": "სწორია! (18 + 6) : 3 = 8.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "gap",
@@ -242,7 +270,9 @@
       ],
       "answer": "7"
     },
-    "praise": "სწორია! 42 : 6 = 7."
+    "praise": "სწორია! 42 : 6 = 7.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -259,7 +289,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 134 · 2 = 268."
+    "praise": "სწორია! 134 · 2 = 268.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -276,7 +308,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 24 · 3 = 72."
+    "praise": "სწორია! 24 · 3 = 72.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "gap",
@@ -295,7 +329,9 @@
       ],
       "answer": "448"
     },
-    "praise": "სწორია! 112 · 4 = 448."
+    "praise": "სწორია! 112 · 4 = 448.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "truefalse",
@@ -306,7 +342,9 @@
     "payload": {
       "answer": false
     },
-    "praise": "სწორია! ეს არასწორია, 7 · 8 = 56."
+    "praise": "სწორია! ეს არასწორია, 7 · 8 = 56.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -323,7 +361,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 243 · 2 = 486."
+    "praise": "სწორია! 243 · 2 = 486.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -340,7 +380,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 15 · 4 = 60."
+    "praise": "სწორია! 15 · 4 = 60.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "multiple",
@@ -357,7 +399,9 @@
       ],
       "answer": 0
     },
-    "praise": "სწორია! 317 · 3 = 951."
+    "praise": "სწორია! 317 · 3 = 951.",
+    "subject": "math",
+    "grade": 4
   },
   {
     "type": "truefalse",
@@ -368,6 +412,8 @@
     "payload": {
       "answer": true
     },
-    "praise": "სწორია! 3 · 142 = 426."
+    "praise": "სწორია! 3 · 142 = 426.",
+    "subject": "math",
+    "grade": 4
   }
 ]

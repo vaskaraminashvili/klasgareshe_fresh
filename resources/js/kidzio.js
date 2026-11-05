@@ -45,12 +45,23 @@ function register() {
     streak: cfg.streak,
     lit: cfg.lit, // seven booleans, oldest first, today last
     games: cfg.games,
+    subjects: cfg.subjects, // [{ value, label }], only subjects that have questions
+    grades: cfg.grades, // [4, 5, ...], only grades that have questions
     level: 1,
+    subject: null, // null = all subjects
+    grade: null, // null = all grades
     starting: false,
     error: '',
 
     init() {
-      try { this.level = Math.min(10, Math.max(1, Number(localStorage.getItem('kidzio-level')) || 1)); } catch (e) {}
+      try {
+        this.level = Math.min(10, Math.max(1, Number(localStorage.getItem('kidzio-level')) || 1));
+        // A remembered choice that no longer has questions falls back to "all".
+        const subject = localStorage.getItem('kidzio-subject');
+        this.subject = this.subjects.some((s) => s.value === subject) ? subject : null;
+        const grade = Number(localStorage.getItem('kidzio-grade'));
+        this.grade = this.grades.includes(grade) ? grade : null;
+      } catch (e) {}
     },
 
     get greeting() {
@@ -82,11 +93,23 @@ function register() {
       try { localStorage.setItem('kidzio-level', n); } catch (e) {}
     },
 
+    setSubject(value) {
+      this.subject = value;
+      this.error = '';
+      try { value ? localStorage.setItem('kidzio-subject', value) : localStorage.removeItem('kidzio-subject'); } catch (e) {}
+    },
+
+    setGrade(value) {
+      this.grade = value;
+      this.error = '';
+      try { value ? localStorage.setItem('kidzio-grade', value) : localStorage.removeItem('kidzio-grade'); } catch (e) {}
+    },
+
     async start(type) {
       if (this.starting) return;
       this.starting = true;
       this.error = '';
-      const r = await this.$wire.start(type, this.level);
+      const r = await this.$wire.start(type, this.level, this.subject, this.grade);
       if (r && r.error) {
         this.error = r.error;
         this.starting = false;
