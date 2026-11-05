@@ -46,21 +46,15 @@ function register() {
     lit: cfg.lit, // seven booleans, oldest first, today last
     games: cfg.games,
     subjects: cfg.subjects, // [{ value, label }], only subjects that have questions
-    grades: cfg.grades, // [4, 5, ...], only grades that have questions
     level: 1,
     subject: null, // null = all subjects
-    grade: null, // null = all grades
+    grade: cfg.grade, // the signed-in user's grade; null for guests = all grades
     starting: false,
     error: '',
 
     init() {
       try {
         this.level = Math.min(10, Math.max(1, Number(localStorage.getItem('kidzio-level')) || 1));
-        // A remembered choice that no longer has questions falls back to "all".
-        const subject = localStorage.getItem('kidzio-subject');
-        this.subject = this.subjects.some((s) => s.value === subject) ? subject : null;
-        const grade = Number(localStorage.getItem('kidzio-grade'));
-        this.grade = this.grades.includes(grade) ? grade : null;
       } catch (e) {}
     },
 
@@ -91,18 +85,6 @@ function register() {
     setLevel(n) {
       this.level = n;
       try { localStorage.setItem('kidzio-level', n); } catch (e) {}
-    },
-
-    setSubject(value) {
-      this.subject = value;
-      this.error = '';
-      try { value ? localStorage.setItem('kidzio-subject', value) : localStorage.removeItem('kidzio-subject'); } catch (e) {}
-    },
-
-    setGrade(value) {
-      this.grade = value;
-      this.error = '';
-      try { value ? localStorage.setItem('kidzio-grade', value) : localStorage.removeItem('kidzio-grade'); } catch (e) {}
     },
 
     async start(type) {
@@ -139,12 +121,9 @@ function register() {
     feedback: '',
     mood: 'idle',
     blasting: false,
-    name: '',
-    nameState: '',
 
     init() {
       window.addEventListener('resize', () => this.drawLines());
-      this.name = this.$wire.playerName || '';
       if (this.$wire.finished) this.screen = 'results';
       else this.resetQuestion();
     },
@@ -226,7 +205,6 @@ function register() {
       await this.$wire.next();
       this.busy = false;
       if (this.$wire.finished) {
-        this.name = this.$wire.playerName || '';
         this.go('results');
         return;
       }
@@ -475,15 +453,6 @@ function register() {
     get durationText() {
       const sec = this.s.duration || 0;
       return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
-    },
-
-    async saveName() {
-      const value = this.name.trim();
-      if (!value || this.busy) return;
-      this.busy = true;
-      const r = await this.$wire.saveName(value);
-      this.busy = false;
-      this.nameState = r.ok ? 'saved' : r.error;
     },
   }));
 }

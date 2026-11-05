@@ -5,6 +5,14 @@
 
         <section class="screen" data-screen="home" aria-label="მთავარი">
             <div class="screen-body pt-7 grid content-start gap-5">
+                @auth
+                    <a href="{{ route('profile') }}" class="justify-self-end" aria-label="პროფილი">
+                        @include('partials.avatar', ['key' => auth()->user()->avatar, 'label' => auth()->user()->avatar ? null : auth()->user()->initials()])
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="chip justify-self-end inline-flex items-center">შესვლა</a>
+                @endauth
+
                 <div class="home-hero">
                     <div>
                         <p class="font-head font-bold text-xl text-onbg-soft" x-text="greeting + ','"></p>
@@ -30,20 +38,6 @@
                     </div>
                 </div>
                 --}}
-
-                <div class="chip-row" role="group" aria-label="საგანი" x-show="subjects.length">
-                    <button type="button" class="chip" :aria-pressed="subject === null" @click="setSubject(null)">ყველა საგანი</button>
-                    <template x-for="s in subjects" :key="s.value">
-                        <button type="button" class="chip" :aria-pressed="subject === s.value" @click="setSubject(s.value)" x-text="s.label"></button>
-                    </template>
-                </div>
-
-                <div class="chip-row" role="group" aria-label="კლასი" x-show="grades.length">
-                    <button type="button" class="chip" :aria-pressed="grade === null" @click="setGrade(null)">ყველა კლასი</button>
-                    <template x-for="g in grades" :key="g">
-                        <button type="button" class="chip" :aria-pressed="grade === g" @click="setGrade(g)" x-text="`${g} კლასი`"></button>
-                    </template>
-                </div>
 
                 <div class="level-slider">
                     <div class="flex items-baseline justify-between gap-3">

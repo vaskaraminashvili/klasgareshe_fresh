@@ -36,7 +36,7 @@ class Home extends Component
     public function start(?string $type, int $level, GameSessionService $sessions, PlayerResolver $players, ?string $subject = null, ?int $grade = null): array
     {
         $game = $type ? Game::where('type', $type)->where('is_active', true)->firstOrFail() : null;
-        $grade = $grade !== null && $grade >= 1 && $grade <= 12 ? $grade : null;
+        $grade = auth()->user()?->grade ?? ($grade !== null && $grade >= 1 && $grade <= 12 ? $grade : null);
 
         try {
             $session = $sessions->start($players->resolve(), $game, $level, $subject ? mb_substr($subject, 0, 50) : null, $grade);
@@ -49,18 +49,25 @@ class Home extends Component
         return [];
     }
 
+    public function mount(): void
+    {
+        if (auth()->user()?->grade === null && auth()->check()) {
+            $this->redirectRoute('grade');
+        }
+    }
+
     public function render(PlayerResolver $players): View
     {
         $player = $players->resolve();
 
         return view('livewire.home', [
             'config' => [
-                'name' => $player->name ?? 'მეგობარო',
+                'name' => auth()->user()?->name ?? 'მეგობარო',
                 'streak' => $player->streak(),
                 'lit' => $player->activeDays(7),
                 'subjects' => Question::where('is_active', true)->whereNotNull('subject')->distinct()->orderBy('subject')->pluck('subject')
                     ->map(fn (string $subject) => ['value' => $subject, 'label' => self::SUBJECT_LABELS[$subject] ?? $subject])->all(),
-                'grades' => Question::where('is_active', true)->whereNotNull('grade')->distinct()->orderBy('grade')->pluck('grade')->all(),
+                'grade' => auth()->user()?->grade,
                 'games' => Game::where('is_active', true)->orderBy('sort')->get()
                     ->map(fn (Game $game) => [
                         'type' => $game->type->value,

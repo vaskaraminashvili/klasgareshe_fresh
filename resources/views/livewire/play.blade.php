@@ -253,19 +253,6 @@
                             <p class="result-score"><span x-text="s.correct"></span> / <span x-text="s.total"></span> სწორი</p>
                             <p class="font-semibold text-ink-soft" x-text="`ქულა: ${s.score} · დრო: ${durationText} · სიზუსტე: ${s.accuracy}%`"></p>
                             <p class="font-semibold text-ink-soft" x-text="resultMessage"></p>
-
-                            <template x-if="!$wire.playerName && nameState !== 'saved'">
-                                <form class="name-form" @submit.prevent="saveName()">
-                                    <label for="player-name" class="font-bold text-ink">როგორ გქვია? (მაქსიმუმ 9 ასო)</label>
-                                    <input id="player-name" class="name-input" type="text" maxlength="9" autocomplete="off"
-                                           x-model="name" aria-describedby="name-note">
-                                    <p id="name-note" class="font-semibold text-ink-soft" role="status" x-text="nameState && nameState !== 'saved' ? nameState : 'სახელით შევინახავთ შენს პროგრესს.'"></p>
-                                    <button type="submit" class="btn btn-paper w-full" :disabled="busy || !name.trim()">შენახვა</button>
-                                </form>
-                            </template>
-                            <template x-if="$wire.playerName">
-                                <p class="font-bold text-ink" role="status" x-text="`პროგრესი შენახულია: ${$wire.playerName}`"></p>
-                            </template>
                         </div>
                         <p class="font-bold text-onbg-soft">
                             ზედიზედ <span class="text-hi" x-text="`${s.streak} დღე`"></span> თამაშობ.

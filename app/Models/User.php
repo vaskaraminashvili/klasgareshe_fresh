@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Gender;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -15,14 +16,19 @@ use Illuminate\Support\Str;
 /**
  * @property int $id
  * @property string $name
+ * @property string $username
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
+ * @property int $rank Reserved; not used yet.
+ * @property Gender $gender
+ * @property int|null $grade
+ * @property string|null $avatar Key of a developer-provided avatar.
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'username', 'email', 'password', 'gender', 'grade', 'avatar'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -39,6 +45,9 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'gender' => Gender::class,
+            'grade' => 'integer',
+            'rank' => 'integer',
         ];
     }
 

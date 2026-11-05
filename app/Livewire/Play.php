@@ -7,7 +7,6 @@ use App\Models\GameSession;
 use App\Services\GameSessionService;
 use App\Services\PlayerResolver;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -36,16 +35,12 @@ class Play extends Component
     #[Locked]
     public array $summary = [];
 
-    #[Locked]
-    public string $playerName = '';
-
     public function mount(GameSession $session, PlayerResolver $players, GameSessionService $sessions): void
     {
         abort_unless($session->player_id === $players->resolve()->id, 404);
 
         $this->uuid = $session->uuid;
         $this->total = $session->total_questions;
-        $this->playerName = $players->resolve()->name ?? '';
         $this->load($session, $sessions);
     }
 
@@ -75,27 +70,6 @@ class Play extends Component
     public function next(GameSessionService $sessions): void
     {
         $this->load($this->ownSession(), $sessions);
-    }
-
-    /** @return array{ok: bool, error?: string} */
-    public function saveName(string $name, PlayerResolver $players): array
-    {
-        $validator = Validator::make(['name' => trim($name)], [
-            'name' => ['required', 'string', 'max:9', 'regex:/^[\p{L}\p{N} _-]+$/u'],
-        ], [
-            'name.required' => 'ჩაწერე სახელი.',
-            'name.max' => 'სახელი მაქსიმუმ 9 ასოა.',
-            'name.regex' => 'გამოიყენე მხოლოდ ასოები და ციფრები.',
-        ]);
-
-        if ($validator->fails()) {
-            return ['ok' => false, 'error' => $validator->errors()->first('name')];
-        }
-
-        $players->resolve()->update(['name' => $validator->validated()['name']]);
-        $this->playerName = $validator->validated()['name'];
-
-        return ['ok' => true];
     }
 
     public function playAgain(GameSessionService $sessions, PlayerResolver $players): void

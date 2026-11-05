@@ -19,7 +19,7 @@ beforeEach(function () {
 });
 
 it('opens without login and hands out an anonymous player cookie', function () {
-    $this->get('/')
+    $this->get(route('home'))
         ->assertOk()
         ->assertSee('სირთულის დონე')
         ->assertCookie('kidzio_player');
@@ -38,7 +38,7 @@ it('starts a session from the home screen and redirects to it', function () {
         ->difficulty->toBe(4);
 });
 
-it('plays a whole session through the Livewire component and saves a short name', function () {
+it('plays a whole session through the Livewire component', function () {
     $session = app(GameSessionService::class)->start($this->player, Game::where('type', GameType::TrueFalse->value)->first(), 3);
 
     $component = Livewire::withCookie('kidzio_player', $this->player->token)
@@ -54,22 +54,7 @@ it('plays a whole session through the Livewire component and saves a short name'
 
     $component->assertSet('finished', true)
         ->assertSet('summary.correct', $total)
-        ->assertSet('summary.stars', 3)
-        ->call('saveName', 'ნინო')
-        ->assertSet('playerName', 'ნინო');
-
-    expect($this->player->fresh()->name)->toBe('ნინო');
-});
-
-it('rejects names longer than nine letters', function () {
-    $session = app(GameSessionService::class)->start($this->player, Game::where('type', 'multiple')->first(), 1);
-
-    Livewire::withCookie('kidzio_player', $this->player->token)
-        ->test(Play::class, ['session' => $session])
-        ->call('saveName', 'ძალიანგრძელისახელი')
-        ->assertSet('playerName', '');
-
-    expect($this->player->fresh()->name)->toBeNull();
+        ->assertSet('summary.stars', 3);
 });
 
 it('keeps the same questions after a page refresh', function () {

@@ -50,4 +50,51 @@
         border: 3px solid var(--ink); border-radius: var(--r-btn);
     }
     .name-input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+    /* Account forms: paper inputs with a solid offset shadow, like the other chunky controls. */
+    .field { display: grid; gap: 8px; }
+    .field-label { font-family: var(--font-head); font-size: 1.25rem; font-weight: 800; color: var(--on-bg); }
+    .field input {
+        width: 100%; min-height: 56px; padding: 0 16px;
+        font: inherit; font-size: 1.25rem; font-weight: 700;
+        color: var(--ink); background: var(--cream);
+        border: 3px solid var(--ink); border-radius: var(--r-btn);
+        box-shadow: 0 4px 0 var(--bg-deep);
+    }
+    .field input:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .field-row { display: flex; gap: 10px; }
+    .field-row input { flex: 1; min-width: 0; }
+    .field-toggle { min-height: 56px; padding: 0 14px; font-size: 1rem; flex: none; }
+    .field-error {
+        padding: 8px 14px; border-radius: 14px; font-weight: 700;
+        color: var(--on-bg); background: var(--bg-raised); border: 2px dashed var(--bg-line);
+    }
+
+    .avatar {
+        --accent: var(--a1); --accent-deep: var(--a1-deep);
+        display: grid; place-items: center; flex: none;
+        width: 64px; height: 64px; border-radius: 50%;
+        font-family: var(--font-head); font-size: 1.75rem; font-weight: 800; color: var(--ink);
+        background: var(--accent); border: 3px solid var(--ink); box-shadow: 0 4px 0 var(--accent-deep);
+    }
+    .avatar[data-accent='a2'] { --accent: var(--a2); --accent-deep: var(--a2-deep); }
+    .avatar[data-accent='a3'] { --accent: var(--a3); --accent-deep: var(--a3-deep); }
+    .avatar[data-accent='a4'] { --accent: var(--a4); --accent-deep: var(--a4-deep); }
+    .avatar svg { width: 60%; height: 60%; }
+    .profile-hero { display: flex; align-items: center; gap: 16px; }
+    .profile-hero .avatar { width: 88px; height: 88px; font-size: 2.5rem; }
+
+    .about-steps { display: grid; gap: 14px; list-style: none; padding: 0; margin: 0; }
+    .about-step { display: flex; align-items: flex-start; gap: 14px; }
+
+    .avatar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .avatar-pick {
+        display: grid; place-items: center; min-height: 88px; cursor: pointer;
+        background: var(--cream); border: 3px solid var(--bg-line); border-radius: var(--r-card);
+        box-shadow: 0 6px 0 var(--bg-deep);
+        transition: transform var(--t-press) ease-out, box-shadow var(--t-press) ease-out;
+    }
+    .avatar-pick[aria-pressed='true'] { border-color: var(--ink); transform: translateY(-3px); box-shadow: 0 9px 0 var(--bg-deep); }
+    .avatar-pick:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { .avatar-pick { transition: none; } }
 }
